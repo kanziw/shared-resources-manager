@@ -3,10 +3,10 @@
     "baseUrl": ".",
     "outDir": "dist",
     "module": "commonjs",
+    "declaration": true,
     "target": "es5",
     "lib": ["es6", "dom", "esnext.asynciterable"],
     "sourceMap": true,
-    "allowJs": true,
     "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
@@ -21,7 +21,5 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "test"]
 }
