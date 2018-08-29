@@ -1,0 +1,32 @@
+{
+  "name": "shared-resources-manager",
+  "version": "0.1.0",
+  "description": "Shared resources manager using Redis",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "cd src && nodemon --exec ts-node index.ts",
+    "prebuild": "rm -rf dist",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanziw/shared-resources-manager.git"
+  },
+  "keywords": [
+    "manage-shared-resource"
+  ],
+  "author": "kanziw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kanziw/shared-resources-manager/issues"
+  },
+  "homepage": "https://github.com/kanziw/shared-resources-manager#readme",
+  "devDependencies": {
+    "@types/node": "^10.9.3",
+    "nodemon": "^1.18.3",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.0.1"
+  }
+}
