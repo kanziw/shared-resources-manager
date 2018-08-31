@@ -48,5 +48,13 @@ describe('Core', () => {
 
       expect(hasSameMembers(valuesExpected, valuesResult)).to.eql(true)
     })
+
+    it('can not take enough values if there are not have enough values', async () => {
+      const [ id, ...valuesExpected ] = [ 'ID', 'VALUE1', 'VALUE2' ]
+      await srm.add(id, valuesExpected)
+      const valuesResult = await srm.take(id, 3)
+
+      expect(hasSameMembers(valuesExpected, valuesResult)).to.eql(true)
+    })
   })
 })

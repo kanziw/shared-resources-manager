@@ -47,7 +47,6 @@ describe('helper', () => {
       ]
 
       testSet.forEach(({ arr1, arr2, result }) => {
-        console.log('>>', arr1, arr2)
         expect(hasSameMembers(arr1, arr2)).to.eql(result)
       })
     })
