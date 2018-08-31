@@ -28,6 +28,15 @@ export default class SharedResourceManager {
     })
   }
 
+  public take(id: string, count: number = 1): Promise<string[]> {
+    assert(count > 0, '[take] Check params')
+    return new Promise((resolve, reject) => {
+      this.client.spop(this.genKey(id), count, (err, ret) => {
+        return err ? reject(err) : resolve(ret)
+      })
+    })
+  }
+
   public end(flush: boolean): void {
     this.client.end(flush)
   }
