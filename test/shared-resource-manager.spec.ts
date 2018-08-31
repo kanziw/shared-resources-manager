@@ -57,4 +57,17 @@ describe('Core', () => {
       expect(hasSameMembers(valuesExpected, valuesResult)).to.eql(true)
     })
   })
+
+  describe('SizeOf', () => {
+    it('sizeOf should return cardinality of set', async () => {
+      const [ id1, id2 ] = [ 'ID1', 'ID2' ]
+      await srm.sizeOf(id1).then(size => expect(size).to.eql(0))
+      await srm.sizeOf(id2).then(size => expect(size).to.eql(0))
+
+      await srm.add(id1, 'a')
+      await srm.add(id2, [ 'a', 'b', 'c' ])
+      await srm.sizeOf(id1).then(size => expect(size).to.eql(1))
+      await srm.sizeOf(id2).then(size => expect(size).to.eql(3))
+    })
+  })
 })

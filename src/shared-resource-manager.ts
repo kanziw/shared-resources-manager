@@ -37,6 +37,15 @@ export default class SharedResourceManager {
     })
   }
 
+  public sizeOf(id: string): Promise<number> {
+    assert(id, '[sizeOf] Check params')
+    return new Promise((resolve, reject) => {
+      this.client.scard(this.genKey(id), (err, size) => {
+        return err ? reject(err) : resolve(size)
+      })
+    })
+  }
+
   public end(flush: boolean): void {
     this.client.end(flush)
   }
