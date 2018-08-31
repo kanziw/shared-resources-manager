@@ -71,3 +71,28 @@ describe('Core', () => {
     })
   })
 })
+
+describe('Inject exist redis client', () => {
+  const uniqueKey = 'TEST_FOR_INJECT_CLIENT'
+  const [ id, value ] = [ 'ID', 'VALUE' ]
+
+  it('should work.', async () => {
+    const client = redis.createClient()
+
+    const empty = await new Promise((resolve) => {
+      client.smembers(generateKey(uniqueKey, id), (_, ret) => resolve(ret))
+    })
+    expect(empty).to.eql([])
+
+    const srm = new SharedResourceManager({ uniqueKey }, client)
+    await srm.add(id, value)
+
+    const membersOrg = await new Promise((resolve) => {
+      client.smembers(generateKey(uniqueKey, id), (_, ret) => resolve(ret))
+    }) as string[]
+    const membersNew = await srm.take(id, 1)
+    expect(hasSameMembers(membersOrg, membersNew)).to.eql(true)
+
+    client.end(true)
+  })
+})
