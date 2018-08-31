@@ -1,25 +1,37 @@
+import { expect } from 'chai'
+import redis, { RedisClient } from 'redis'
 import SharedResourceManager from '../src/index'
+import { generateKey } from '../src/utils'
 
 describe('Add shared values', () => {
+  const uniqueKey = 'TEST'
   let srm: SharedResourceManager
+  let client: RedisClient
+
   before(() => {
-    srm = new SharedResourceManager({ uniqueKey: 'TEST' })
+    srm = new SharedResourceManager({ uniqueKey })
+    client = redis.createClient()
   })
   afterEach(() => {
     return new Promise((resolve, reject) => {
-      srm.client.flushall(err => (err ? reject(err) : resolve()))
+      client.flushall(err => (err ? reject(err) : resolve()))
     })
   })
-  after(() => srm.client.end(true))
+  after(() => {
+    srm.end(true)
+    client.end(true)
+  })
 
-  it('basic', async () => {
-    console.log('?????')
-
-    await srm.add('123')
-    await new Promise(resolve => {
-      srm.client.smembers('TEST', (err, ret) => {
-        console.log('ER?', err)
-        console.log('', ret)
+  it('simple add test', async () => {
+    const [ id, value ] = [ 'ID', 'VALUE' ]
+    const count = await srm.add(id, value)
+    await new Promise((resolve, reject) => {
+      client.smembers(generateKey(uniqueKey, id), (err, ret) => {
+        if (err) {
+          return reject(err)
+        }
+        expect(ret).to.be.an.instanceof(Array).lengthOf(count)
+        expect(ret[ 0 ]).to.eql(value)
         resolve()
       })
     })

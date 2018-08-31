@@ -25,7 +25,8 @@
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.9.3",
+    "@types/node": "^10.9.4",
+    "@types/ramda": "^0.25.37",
     "@types/redis": "^2.8.6",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
@@ -36,6 +37,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
+    "ramda": "^0.25.0",
     "redis": "^2.8.0"
   }
 }
