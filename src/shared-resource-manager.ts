@@ -12,7 +12,7 @@ export default class SharedResourceManager {
   constructor(options: SharedResourceManagerOptions, client?: RedisClient) {
     const { port = 6379, host = '127.0.0.1', uniqueKey = '' } = options
     if (!uniqueKey) {
-      console.debug('uniqueKey is not defined, use ["SRM"] instead.')
+      console.log('uniqueKey is not defined, use ["SRM"] instead.')
     }
 
     this.client = client instanceof RedisClient ? client : redis.createClient(port, host)
